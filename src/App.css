@@ -1,0 +1,4945 @@
+/* =========================================
+   1. GLOBAL RESET & FONTS
+   ========================================= */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+  /* COLORS */
+  --bg-body: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-main: #1a1a1a;
+  --text-muted: #555555;
+  --primary-gold: #d4a017;
+  --accent-glow: rgba(212, 160, 23, 0.4);
+  --border-color: #e9ecef;
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+  /* GLASSMORPHISM */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+
+  /* COMPONENTS */
+  --card-bg: #ffffff;
+  --modal-img-bg: #f0f2f5;
+  --modal-info-bg: #ffffff;
+  --hero-blob: #f0f0f0;
+
+  /* Light Mode Skeleton Colors */
+  --skeleton-base: #e0e0e0; /* Base Gray */
+  --skeleton-highlight: #f8f8f8; /* Shining wala light gray */
+  --skeleton-card-bg: #ffffff; /* Card ka background */
+}
+
+[data-theme="dark"] {
+  --bg-body: #0f172a;
+  --bg-secondary: #1e293b;
+  --text-main: #ffffff;
+  --text-muted: #d1d5db;
+  --primary-gold: #ffd700;
+  --accent-glow: rgba(255, 215, 0, 0.3);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(15, 23, 42, 0.85);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  --card-bg: #1e293b;
+  --modal-img-bg: #162032;
+  --modal-info-bg: #0f172a;
+  --hero-blob: #1e293b; /* Dark Mode Skeleton Colors (Darker Grays) */
+  --skeleton-base: #2c2c2c; /* Dark Base */
+  --skeleton-highlight: #444444; /* Dark Shine */
+  --skeleton-card-bg: #1e1e1e; /* Dark Card Background */
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.brand-font,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display", serif;
+}
+
+/* Helper Classes */
+.cursor-pointer {
+  cursor: pointer;
+}
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+
+/* =========================================
+   1. NEW PREMIUM NAVBAR (Solid & Elegant)
+   ========================================= */
+.navbar {
+  padding: 12px 0;
+  transition: all 0.4s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Glass hata kar Solid White + Gold Bottom Border */
+.glass-navbar {
+  background: var(--bg-body) !important; /* Solid background */
+  border-bottom: 2px solid var(--primary-gold); /* Gold Line */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Soft Shadow */
+}
+
+/* Brand Logo Animation */
+.navbar-brand {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.navbar-brand:hover {
+  transform: scale(1.05); /* Halka sa bara hoga */
+}
+
+/* Desktop Links with Underline Animation */
+.nav-link-custom {
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 12px;
+  position: relative;
+  text-decoration: none;
+  color: var(--text-main) !important;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-link-custom:hover {
+  color: var(--primary-gold) !important;
+  transition: all 0.3s ease;
+  transform: translateY(-3px);
+}
+
+/* Line jo hover karne par left se right chalegi */
+.nav-link-custom::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary-gold);
+  transition: width 0.3s ease-in-out;
+}
+
+.nav-link-custom:hover::after {
+  width: 100%; /* Pura underline ban jayega */
+}
+
+/* Icons Animation */
+.nav-icon-btn {
+  position: relative; /* Badge ko iske hisaab se set karne ke liye zaroori hai */
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.nav-icon-btn:hover {
+  background: var(--primary-gold);
+  color: #fff !important;
+  transform: translateY(-3px) rotate(10deg); /* Thora uthay ga aur ghoomega */
+  box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+.cart-badge {
+  position: absolute;
+  /* Top-Right Corner par set karna */
+  top: -2px;
+  right: -2px;
+
+  /* Size aur Shape */
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  /* Colors */
+  background-color: #e74c3c; /* Bright Red for Alert */
+  color: white;
+  border: 2px solid var(--bg-body); /* White border taake alag nazar aaye */
+
+  /* Text Style */
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Animation */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: popBadge 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Badge Animation Keyframes */
+@keyframes popBadge {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   PREMIUM MOBILE SIDEBAR STYLING
+   ========================================= */
+
+/* Sidebar Container */
+
+/* App.css mein check karen */
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Poori Screen ki Chorai */
+  height: 100%; /* Poori Screen ki Lambai */
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 2000; /* Sidebar se peeche, lekin baqi site se upar */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer; /* User ko pata chale ke yahan click ho sakta hai */
+}
+
+.mobile-menu-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu-sidebar {
+  position: fixed;
+  top: 0;
+  left: -360px;
+  width: 300px;
+  height: 100vh;
+  background: var(--bg-body);
+  z-index: 2001;
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 0; /* Padding hatayi taake header full width ho */
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  border-right: 4px solid var(--primary-gold); /* Premium Gold Border */
+}
+
+.mobile-menu-sidebar.open {
+  left: 0;
+}
+
+/* 1. Header Styling */
+.mobile-menu-header {
+  padding: 25px 20px;
+  background: var(--bg-secondary); /* Thora alag rang header ke liye */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.btn-close-custom {
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+.btn-close-custom:hover {
+  background: #ff4d4d;
+  color: white;
+  border-color: #ff4d4d;
+}
+
+/* 2. Navigation Links */
+.mobile-links {
+  padding: 20px;
+  flex-grow: 1; /* Baqi jagah gher le */
+  overflow-y: auto;
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+/* Hover Effect on Links */
+.mobile-nav-item:hover {
+  background: var(--bg-secondary);
+  border-color: var(--primary-gold);
+  transform: translateX(5px);
+}
+
+.nav-icon-box {
+  width: 35px;
+  height: 35px;
+  background: rgba(212, 160, 23, 0.1);
+  color: var(--primary-gold);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-size: 1rem;
+}
+
+.nav-text {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-main);
+  flex-grow: 1;
+}
+
+.nav-arrow {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
+
+/* 3. Footer Section */
+.mobile-menu-footer {
+  padding: 20px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Theme Toggle Pill */
+.theme-toggle-box {
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  padding: 10px 15px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Social Icons */
+.social-icons-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-body);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+  font-size: 1.1rem;
+}
+
+.social-btn:hover {
+  background: var(--primary-gold);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.copyright-text {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* =========================================
+   PREMIUM ABOUT & HOME SECTIONS
+   ========================================= */
+
+/* --- GENERAL UTILS --- */
+.text-gold {
+  color: var(--primary-gold) !important;
+}
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--primary-gold), #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.ls-2 {
+  letter-spacing: 2px;
+}
+.ls-3 {
+  letter-spacing: 3px;
+}
+
+/* --- 1. HOME TEASER SECTION --- */
+.blob-bg {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: 80%;
+  height: 100%;
+  background: rgba(212, 160, 23, 0.1); /* Light Gold Blob */
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  z-index: -1;
+}
+
+.image-composition {
+  position: relative;
+  padding: 20px;
+}
+.main-img {
+  border-radius: 20px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.glass-badge {
+  position: absolute;
+  bottom: 40px;
+  right: -20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.about-badge-pill {
+  display: inline-block;
+  background: var(--text-main);
+  color: var(--bg-body);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.btn-premium-outline {
+  border: 2px solid var(--text-main);
+  color: var(--text-main);
+  background: transparent;
+  font-weight: 600;
+  transition: 0.3s;
+}
+.btn-premium-outline:hover {
+  background: var(--text-main);
+  color: var(--bg-body);
+  transform: translateY(-3px);
+}
+
+/* --- 2. ABOUT US FULL PAGE --- */
+.about-hero-fullscreen {
+  height: 70vh; /* Screenshot issue fix: Height barha di */
+  min-height: 500px;
+  background: url("./assets/QueenSizeBunkBed2.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  margin-top: -85px; /* Navbar ke peeche le jane ke liye */
+  padding-top: 85px;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.7)
+  );
+}
+
+.text-shadow {
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-back-absolute {
+  position: absolute;
+  top: 100px;
+  left: 30px;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+}
+.btn-back-absolute:hover {
+  background: white;
+  color: black;
+}
+
+/* CEO Image */
+.ceo-img-box {
+  position: relative;
+  padding: 15px;
+}
+.border-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--primary-gold);
+  border-radius: 15px;
+  transform: translate(-15px, -15px);
+  z-index: -1;
+}
+
+/* Values Cards */
+.value-card-premium {
+  background: var(--bg-main);
+  padding: 30px 20px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: 0.3s;
+}
+.value-card-premium:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary-gold);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+}
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background: var(--bg-secondary);
+  color: var(--primary-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin: 0 auto;
+  transition: 0.3s;
+}
+.value-card-premium:hover .icon-circle {
+  background: var(--primary-gold);
+  color: #fff;
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)),
+    url("https://images.unsplash.com/photo-1505693416388-b034631ac0f3?auto=format&fit=crop&w=1500&q=80");
+  background-size: cover;
+  background-attachment: fixed;
+}
+.btn-gold-solid {
+  background: transparent;
+  color: #fff;
+  font-weight: 700;
+  border: 2px solid #fff;
+  box-shadow: 0 5px 15px rgba(80, 80, 80, 0.3);
+  transition: 0.3s ease-in-out;
+}
+.btn-gold-solid:hover {
+  background: var(--primary-gold);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(112, 81, 7, 0.3);
+}
+
+/* --- ANIMATIONS --- */
+.floating-anim {
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+@media (max-width: 768px) {
+  /* Home Section */
+  .glass-badge {
+    right: 10px;
+    padding: 10px 20px;
+    bottom: 20px;
+  }
+  .display-4 {
+    font-size: 2.5rem;
+  }
+
+  /* Full Page */
+  .about-hero-fullscreen {
+    height: 60vh;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .display-1 {
+    font-size: 3rem;
+  }
+  .hero-desc {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
+  .btn-back-absolute {
+    top: 80px;
+    left: 20px;
+    font-size: 0.8rem;
+    padding: 5px 15px;
+  }
+
+  /* Stats Strip */
+  .stats-strip h2 {
+    font-size: 1.8rem;
+  }
+  .stats-strip small {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+
+  /* CEO Section */
+  .ceo-img-box {
+    margin-bottom: 30px;
+  }
+  .border-frame {
+    transform: translate(-10px, -10px);
+  }
+}
+
+/* =========================================
+   PREMIUM CART SIDEBAR (Light & Dark Mode)
+   ========================================= */
+
+/* 1. Overlay (Backdrop) */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Thora gehra andhera */
+  backdrop-filter: blur(5px); /* Premium Blur Effect */
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.cart-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 2. The Sidebar Drawer */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -450px; /* Hidden */
+  width: 420px; /* Thora chora (wider) desktop ke liye */
+  height: 100vh;
+  background: var(--bg-body); /* Theme color pick karega */
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smooth Slide */
+  border-left: 1px solid var(--border-color);
+}
+.cart-sidebar.open {
+  right: 0;
+}
+
+/* 3. Header */
+.cart-header {
+  padding: 25px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-body);
+}
+.cart-header h3 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  margin: 0;
+}
+.cart-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 1.2rem;
+  transition: 0.3s;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart-close-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #ff4d4d;
+  transform: rotate(90deg);
+}
+
+/* 4. Cart Items List (Scrollable Area) */
+.cart-items-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+/* Scrollbar Styling */
+.cart-items-container::-webkit-scrollbar {
+  width: 5px;
+}
+.cart-items-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 10px;
+}
+
+/* Single Cart Item */
+.cart-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: var(--bg-card); /* Theme aware background */
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s;
+  position: relative;
+}
+.cart-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-gold);
+}
+
+.cart-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #f0f0f0;
+}
+
+.cart-item-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.cart-item-price {
+  color: var(--primary-gold);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Qty Controls inside Item */
+.cart-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.mini-qty-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-main);
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+.qty-mini-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.qty-mini-val {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.delete-btn {
+  background: rgba(255, 0, 0, 0.1);
+  color: #ff4d4d;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.delete-btn:hover {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* 5. Footer (Checkout Area) */
+.cart-footer {
+  padding: 25px;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.bill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.bill-label {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+.bill-total {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.btn-checkout {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, var(--primary-gold), #d35400);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 20px var(--accent-glow);
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.btn-checkout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px var(--accent-glow);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 768px) {
+  .cart-sidebar {
+    width: 100%;
+    right: -100%;
+  } /* Full width on mobile */
+  .cart-sidebar.open {
+    width: 90%;
+    right: 0;
+  }
+
+  .cart-item {
+    padding: 5px;
+  }
+
+  .cart-item-img {
+    width: 70px;
+    height: 70px;
+  }
+  .cart-item-name {
+    font-size: 0.95rem;
+  }
+
+  .cart-item-price {
+    width: 90px;
+    color: var(--primary-gold);
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .cart-footer {
+    padding-bottom: 30px; /* Safe area for iPhone home bar */
+  }
+}
+
+/* =========================================
+   ULTRA PREMIUM CHECKOUT UPGRADES 
+   ========================================= */
+
+/* --- 1. ORDER SUMMARY IMAGE FIX --- */
+/* Scrollbar hatana aur image ko khubsurat banana */
+.checkout-card.summary-sticky > div:first-of-type {
+  padding-right: 0 !important;
+  scrollbar-width: none; /* Firefox */
+  overflow: hidden;
+}
+.checkout-card.summary-sticky > div:first-of-type::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* --- 2. PLACE ORDER BUTTON (THE GOLD BAR) --- */
+.btn-gold-checkout {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  /* Gold Gradient - Yehi asal premium look layega */
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  /* Shadow jo button ko hawa me uthaye */
+  box-shadow: 0 10px 25px -5px rgba(212, 160, 23, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover Shine Effect */
+.btn-gold-checkout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px -5px rgba(212, 160, 23, 0.6);
+  background: linear-gradient(135deg, #e6b83a 0%, #c79212 100%);
+}
+.btn-gold-checkout:active {
+  transform: scale(0.98);
+}
+
+/* --- 3. PAYMENT METHOD BUTTONS (NEW STYLE) --- */
+/* Note: JSX me button par 'payment-tab-btn' class honi chahiye (niche bataya hai) */
+.payment-tab-btn {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 50px; /* Capsule shape buttons */
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+}
+
+.payment-tab-btn:hover {
+  background: #f8fafc;
+  transform: translateY(-2px);
+  color: #d4a017;
+  border-color: #d4a017;
+}
+
+/* Active State (Selected Button) */
+.payment-tab-btn.active {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.4);
+}
+
+/* --- 4. ACCOUNT DETAILS BOX (The Main Card) --- */
+.account-details-box {
+  background: #ffffff !important;
+  border: 2px solid #f1f5f9 !important;
+  padding: 25px !important;
+  border-radius: 16px !important;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.01); /* Andar ki taraf halka shadow */
+  transition: all 0.3s ease;
+}
+
+/* Jab active ho to Border Gold ho jaye */
+.account-details-box:hover {
+  border-color: rgba(212, 160, 23, 0.3) !important;
+}
+
+/* Account Number Highlight */
+.account-number-highlight {
+  font-family: "Courier New", monospace; /* Banking font */
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: #fffbe6; /* Very light yellow bg */
+  padding: 8px 15px;
+  border-radius: 8px;
+  border-left: 4px solid #d4a017; /* Left side gold line */
+  display: inline-block;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+/* --- 5. FILE UPLOAD BUTTON (Customize Default Grey Button) --- */
+input[type="file"]::file-selector-button {
+  background: #0f172a; /* Dark Blue/Black */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+input[type="file"]::file-selector-button:hover {
+  background: #d4a017; /* Hover par Gold */
+  color: white;
+}
+
+/* =========================================
+   FINAL CHECKOUT FIXES (Icons, Summary, Spacing)
+   ========================================= */
+
+/* --- 1. SHIPPING INPUT ICONS FIX --- */
+.input-group-custom {
+  position: relative !important; /* Zaroori hai taake icon iske andar hi rahe */
+  width: 100%;
+}
+
+.input-icon-overlay {
+  position: absolute;
+  top: 50%;
+  left: 15px; /* Left side se faasla */
+  transform: translateY(-50%); /* Bilkul center mein laye */
+  color: #d4a017; /* Gold Color taake saaf nazar aye */
+  font-size: 1.2rem; /* Icon ka size bara kiya */
+  z-index: 10; /* Input ke upar dikhane ke liye */
+  pointer-events: none; /* Taake click input par jaye, icon par nahi */
+}
+
+/* Icon Textarea (Address) ke liye thora upar ho */
+.input-icon-overlay.icon-top {
+  top: 20px;
+  transform: none;
+}
+
+/* Input field me jagah banana taake text icon ke upar na aye */
+.form-input-premium {
+  padding-left: 50px !important; /* Text ko icon se door kiya */
+}
+
+/* --- 2. ORDER SUMMARY SIZE INCREASE --- */
+/* Product Image */
+.checkout-item-row .img-thumb {
+  width: 100% !important; /*Tasweer kafi bari kar di (pehle 70px thi)*/
+  height: 100% !important;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #f1f5f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Product Title (Name) */
+.checkout-item-row h6 {
+  font-size: 1.15rem !important; /* Naam bara kiya */
+  font-weight: 800 !important;
+  color: #0f172a;
+  margin-bottom: 5px;
+}
+
+/* Quantity & Variant Text */
+.checkout-item-row small {
+  font-size: 1rem !important; /* Qty text bara kiya */
+  color: #64748b;
+  display: block; /* New line par aye */
+}
+
+/* Price Text */
+.checkout-item-row .fw-bold.text-dark.small {
+  font-size: 1.2rem !important; /* Price bari aur wazeh */
+  color: #d4a017 !important; /* Price ko Gold color diya */
+}
+
+/* --- 3. FOOTER SPACING (Gap Increase) --- */
+.checkout-container {
+  /* Niche se gap barhaya taake Footer se chipke nahi */
+  padding-bottom: 120px !important;
+  background-color: #f8f9fa;
+}
+
+/* =========================================
+   DARK MODE PREMIUM FIXES (Checkout Page)
+   ========================================= */
+
+/* 1. Main Background */
+[data-theme="dark"] .checkout-container {
+  background-color: #020617 !important; /* Deepest Dark Blue */
+}
+
+/* 2. Card Backgrounds (Inputs & Summary) */
+[data-theme="dark"] .checkout-card {
+  background-color: #1e293b !important; /* Slate Blue Card */
+  border-color: #334155 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4); /* Gehra Shadow */
+}
+
+/* 3. Text Colors (Headings & Labels) */
+[data-theme="dark"] .card-title,
+[data-theme="dark"] h6,
+[data-theme="dark"] label,
+[data-theme="dark"] .text-dark,
+[data-theme="dark"] .text-main {
+  color: #f1f5f9 !important; /* Bright White Text */
+}
+
+[data-theme="dark"] small,
+[data-theme="dark"] .text-muted {
+  color: #94a3b8 !important; /* Soft Grey Text */
+}
+
+/* 4. Input Fields Styling in Dark Mode */
+[data-theme="dark"] .form-input-premium {
+  background-color: #0f172a !important; /* Darker than card */
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .form-input-premium:focus {
+  border-color: #d4a017 !important; /* Focus par Gold */
+  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.2);
+}
+
+/* Input Icons Fix */
+[data-theme="dark"] .input-icon-overlay {
+  color: #d4a017 !important; /* Icons Gold rahen */
+  z-index: 20;
+}
+
+/* 5. Payment Method Buttons (Inactive State) */
+[data-theme="dark"] .payment-tab-btn {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .payment-tab-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+}
+
+/* Active State same rahega (Gold Gradient) */
+
+/* 6. Account Details Box (Bank Section) */
+[data-theme="dark"] .account-details-box {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .account-details-box:hover {
+  border-color: #d4a017 !important;
+}
+
+/* Account Number Highlight in Dark Mode */
+[data-theme="dark"] .account-number-highlight {
+  background-color: #334155; /* Dark Grey BG */
+  color: #fbbf24; /* Brighter Gold text */
+  border-left-color: #fbbf24;
+}
+
+/* 7. Summary Product Image Border */
+[data-theme="dark"] .checkout-item-row .img-thumb {
+  border-color: #334155; /* Dark Border around image */
+}
+
+/* 8. Total Bill Text */
+[data-theme="dark"] .d-flex .text-dark {
+  color: #fff !important;
+}
+
+/* =========================================
+   PREMIUM CHECKOUT STYLES (App.css me dalein)
+   ========================================= */
+
+/* 1. Payment Method Buttons (Capsule Shape) */
+.payment-tab-btn {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 50px; /* Capsule styling */
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.payment-tab-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+  transform: translateY(-2px);
+}
+
+.payment-tab-btn.active {
+  background: linear-gradient(135deg, #d4a017, #b8860b); /* Gold Gradient */
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.4); /* Gold Glow */
+}
+
+/* 2. Account Details Box (Bank Card Look) */
+.account-details-box {
+  background: #ffffff;
+  border: 2px solid #f1f5f9;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.account-details-box:hover {
+  border-color: rgba(212, 160, 23, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* 3. Account Number Highlight (Digital Look) */
+.account-number-highlight {
+  font-family: "Courier New", monospace;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0f172a;
+  background: #fffbe6; /* Light Yellow BG */
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 4px solid #d4a017;
+  display: inline-block;
+  margin-top: 5px;
+  letter-spacing: 1px;
+}
+
+/* 4. Place Order Button (Gold Bar) */
+.btn-gold-checkout {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px -5px rgba(212, 160, 23, 0.5);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-gold-checkout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px -5px rgba(212, 160, 23, 0.6);
+}
+
+/* 5. Summary Image Fix */
+.checkout-item-row .img-thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Checkout Slider & Mobile Fixes --- */
+
+/* Payment Buttons Slider Container */
+.payment-slider-container::-webkit-scrollbar {
+  height: 6px; /* Patla scrollbar */
+}
+
+.payment-slider-container::-webkit-scrollbar-thumb {
+  background-color: #d4a017; /* Gold color */
+  border-radius: 10px;
+}
+
+.payment-slider-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Account Number Fix for Mobile */
+.account-number-highlight {
+  background-color: #fffbe6;
+  border-left: 4px solid #d4a017;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #0f172a;
+  width: 100%; /* Full width le */
+  box-sizing: border-box;
+}
+
+/* Mobile Specific Tweaks */
+@media (max-width: 576px) {
+  .payment-tab-btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .account-number-highlight {
+    font-size: 0.9rem !important; /* Thora chota font mobile ke liye */
+    letter-spacing: 0.5px;
+  }
+}
+
+/* =========================================
+   ORDER SUCCESS MODAL (FIXED & DARK MODE READY)
+   ========================================= */
+
+/* 1. The Overlay (Peeche wala dhundla hissa) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Thora gehra kala */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000; /* Sab se upar */
+  backdrop-filter: blur(5px); /* Peeche blur effect */
+}
+
+/* --- CLOSE BUTTON (X) STYLING --- */
+.btn-close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8; /* Muted Grey */
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+/* Hover Effect */
+.btn-close-modal:hover {
+  background-color: #f1f5f9; /* Halka Grey Background */
+  color: #ff4757; /* Red Color on Hover (Close feel dene ke liye) */
+  transform: rotate(90deg); /* Mast ghoomne wala animation */
+}
+
+/* Dark Mode Support */
+[data-theme="dark"] .btn-close-modal {
+  color: #64748b;
+}
+[data-theme="dark"] .btn-close-modal:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff6b6b;
+}
+
+/* 2. The Modal Box (Dabba) */
+.success-modal {
+  width: 90%;
+  max-width: 500px;
+  background: #ffffff; /* Light Mode: Safaid */
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  border-top: 6px solid var(--primary-gold); /* Green Top Line */
+  overflow: hidden;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* --- DARK MODE FIX --- */
+[data-theme="dark"] .success-modal {
+  background: #1e293b; /* Dark Mode: Deep Navy */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 6px solid #28a745;
+}
+
+/* 3. Text Colors */
+.success-modal h2 {
+  color: #0f172a;
+}
+.success-modal p {
+  color: #64748b;
+}
+
+[data-theme="dark"] .success-modal h2 {
+  color: #ffffff;
+}
+[data-theme="dark"] .success-modal p {
+  color: #94a3b8;
+}
+
+/* 4. Order ID Box */
+.order-id-box {
+  background: #f8fafc;
+  border: 2px dashed #d4a017;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 25px 0;
+}
+
+[data-theme="dark"] .order-id-box {
+  background: #0f172a; /* Darker background inside modal */
+  border-color: #d4a017;
+}
+
+/* ID Text */
+.tracking-id-text {
+  font-family: "Courier New", monospace;
+  letter-spacing: 2px;
+  color: #0f172a;
+  font-size: 1.5rem;
+}
+
+[data-theme="dark"] .tracking-id-text {
+  color: #f8fafc;
+}
+
+/* =========================================
+   PREMIUM TOAST NOTIFICATION
+   ========================================= */
+
+.custom-toast {
+  position: absolute; /* Modal ke andar center rahega */
+  bottom: 30px; /* Neechay se thora upar */
+  left: 50%;
+  transform: translateX(-50%) translateY(20px); /* Shuru mein thora neechay aur chupa hua */
+
+  background-color: #0f172a; /* Deep Navy/Black Premium */
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid #d4a017; /* Gold Border */
+
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20000; /* Sab se upar */
+}
+
+/* Jab Show Class lagegi */
+.custom-toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0); /* Upar slide karega */
+}
+
+/* Dark Mode Adjustment */
+[data-theme="dark"] .custom-toast {
+  background-color: #fff;
+  color: #0f172a;
+  border-color: #d4a017;
+}
+
+/* 5. Copy Button */
+.btn-icon-copy {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: 0.2s;
+}
+.btn-icon-copy:hover {
+  color: #d4a017;
+  transform: scale(1.1);
+}
+
+/* 6. Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bounce-animation {
+  animation: bounce 2s infinite;
+}
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+
+/* Button Fix */
+.success-modal .btn-gold {
+  background: var(--primary-gold);
+  color: #fff;
+  border: none;
+  box-shadow: 0 10px 20px rgba(212, 160, 23, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+  background: #b8860b;
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .success-modal .btn-gold {
+  background: #28a745;
+}
+
+/* =========================================
+   PREMIUM TRACKING PAGE (DARK MODE READY)
+   ========================================= */
+
+/* 1. Base Variables & Page Layout */
+.tracking-page {
+  min-height: 100vh;
+  padding: 60px 20px;
+  transition: all 0.3s ease;
+
+  /* Light Mode Defaults */
+  background-color: #f8f9fa;
+}
+
+/* DARK MODE OVERRIDE */
+[data-theme="dark"] .tracking-page {
+  background-color: #0f172a; /* Deep Premium Navy */
+}
+
+.order-back-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #0f172a;
+  color: #0f172a;
+  padding: 10px 20px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  transition: 0.3s;
+}
+[data-theme="dark"] .order-back-btn {
+  background: #0f172a;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.order-back-btn:hover {
+  background: #fff;
+  color: #0f172a;
+  border: none;
+}
+
+/* 2. The Premium Card */
+.tracking-card {
+  background: #ffffff;
+  padding: 45px;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05); /* Soft Shadow */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .tracking-card {
+  background: #1e293b; /* Darker Navy for Card */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); /* Deep Shadow */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle Border */
+}
+
+/* 3. Typography Updates */
+.tracking-title {
+  font-family: "Fredoka", sans-serif; /* Ya aapki Brand Font */
+  color: #1e293b;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.tracking-subtitle {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+[data-theme="dark"] .tracking-title {
+  color: #ffffff;
+}
+[data-theme="dark"] .tracking-subtitle {
+  color: #94a3b8;
+}
+
+/* 4. Input Fields (Dark Mode Compatible) */
+.form-input-premium {
+  width: 100%;
+  padding: 15px 20px 15px 55px; /* Icon padding */
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+[data-theme="dark"] .form-input-premium {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e2e8f0;
+}
+
+.form-input-premium:focus {
+  border-color: #d4a017;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.15);
+}
+
+[data-theme="dark"] .form-input-premium:focus {
+  background: #0f172a; /* Dark mode mein white nahi hoga */
+}
+
+/* Icons inside Input */
+.input-icon-overlay {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+[data-theme="dark"] .input-icon-overlay {
+  color: #64748b;
+}
+
+.input-group-custom:focus-within .input-icon-overlay {
+  color: #d4a017;
+}
+
+/* 5. Timeline (The Hero Element) */
+.timeline-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin: 40px 0;
+  padding: 0 10px;
+}
+
+.timeline-step {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  opacity: 0.6;
+  transition: 0.4s;
+}
+.timeline-step.active {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* The Circle */
+.timeline-step .circle {
+  width: 55px;
+  height: 55px;
+  background: #f1f5f9;
+  color: #94a3b8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px auto;
+  font-size: 1.3rem;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.4s;
+}
+
+[data-theme="dark"] .timeline-step .circle {
+  background: #334155;
+  color: #94a3b8;
+  border-color: #1e293b;
+}
+
+/* Active State (GOLD) */
+.timeline-step.active .circle {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  box-shadow: 0 10px 25px rgba(212, 160, 23, 0.4); /* Glow Effect */
+  border-color: #fff9e5;
+}
+
+[data-theme="dark"] .timeline-step.active .circle {
+  border-color: #d4a017;
+  box-shadow: 0 0 20px rgba(212, 160, 23, 0.6); /* Stronger Glow in Dark Mode */
+}
+
+.timeline-step p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  margin: 0;
+}
+[data-theme="dark"] .timeline-step p {
+  color: #cbd5e1;
+}
+
+/* Connecting Line */
+.timeline-line {
+  flex-grow: 1;
+  height: 4px;
+  background: #e2e8f0;
+  margin: 0 15px;
+  position: relative;
+  top: -18px;
+  border-radius: 10px;
+}
+[data-theme="dark"] .timeline-line {
+  background: #334155;
+}
+
+.timeline-line.filled {
+  background: linear-gradient(90deg, #d4a017, #f6c956); /* Gradient Line */
+}
+
+/* 6. Order Details List */
+.order-details-box {
+  background: #f8fafc;
+  padding: 25px;
+  border-radius: 16px;
+  border: 1px solid #f1f5f9;
+}
+[data-theme="dark"] .order-details-box {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.text-dark-responsive {
+  color: #0f172a;
+}
+[data-theme="dark"] .text-dark-responsive {
+  color: #f8fafc;
+}
+
+.img-thumb-small {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+/* 7. Buttons */
+.btn-gold-checkout {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  border: none;
+  font-weight: 700;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.btn-gold-checkout:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 160, 23, 0.4);
+}
+
+/* =========================================
+   4. HERO SECTION
+   ========================================= */
+.hero-wrapper {
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-wrapper .row {
+  display: flex;
+  align-items: center;
+}
+
+.hero-blob {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background-color: var(--hero-blob);
+  border-radius: 50%;
+  z-index: -1;
+  transform: translateY(-50%);
+  filter: blur(60px);
+  opacity: 0.6;
+}
+
+.hero-img-real {
+  width: 100%;
+  max-width: 600px;
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  border-radius: 20px;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.btn-premium {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  border: none;
+  font-weight: 700;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 15px 30px;
+  border-radius: 30px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 8px 20px rgba(212, 160, 23, 0.4);
+}
+
+.btn-premium:hover {
+  transform: translateY(-4px);
+}
+
+/* =========================================
+   5. SLIDERS & CARDS (FIXED)
+   ========================================= */
+.slider-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-container {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 40px 20px;
+  scroll-behavior: smooth;
+  justify-content: flex-start;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+}
+.slider-container::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-btn {
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  z-index: 10;
+  position: absolute;
+}
+.slider-btn:hover {
+  background: var(--primary-gold);
+  color: #fff;
+  transform: scale(1.1);
+  border-color: var(--primary-gold);
+}
+.slider-btn.left {
+  left: -15px;
+}
+.slider-btn.right {
+  right: -15px;
+}
+
+/* Product Card */
+.product-slider-card {
+  min-width: 290px;
+  max-width: 290px;
+  flex-shrink: 0;
+  margin: 0 auto;
+  scroll-snap-align: center;
+}
+
+.premium-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.premium-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px -10px var(--accent-glow);
+  border-color: var(--primary-gold);
+}
+
+/* --- UPDATE 1: SLIDER CARD IMAGE --- */
+.card-img-wrapper {
+  position: relative;
+  /* height: 220px;  <-- Isay hata kar aspect-ratio use kar rahe hain */
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Standard size taake sab barabar lagen */
+  overflow: hidden;
+  padding: 10px; /* Thora padding taake tasweer kinare se na lage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(
+    --card-bg
+  ); /* White background zaroori hai premium look ke liye */
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  object-fit: contain; /* Tasweer ko katne se bachayega */
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.card-img-top:hover {
+  transform: scale(1.05); /* Zoom thora soft kar dia */
+}
+
+.category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(27, 38, 59, 0.9);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+  z-index: 2; /* Badge ko tasweer ke upar rakha */
+}
+
+.card-content {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text-main);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-price {
+  color: var(--primary-gold);
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* Buttons */
+.btn-view-premium,
+.btn-solid-gold {
+  background: linear-gradient(135deg, var(--primary-gold), #b8860b);
+  color: #fff !important;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-view-premium:hover,
+.btn-solid-gold:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px var(--accent-glow);
+}
+.btn-solid-gold {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* =========================================
+   CATEGORY SECTION (PREMIUM & MOBILE FIXED)
+   ========================================= */
+
+/* 1. Main Scroll Container */
+.category-scroll-container {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 15px 20px 30px 20px;
+  justify-content: flex-start;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+}
+
+.category-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* 2. Individual Category Card */
+.category-card {
+  min-width: 130px;
+  width: 140px;
+  background: var(--bg-main);
+  border-radius: 20px;
+  padding: 20px 10px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(172, 129, 21, 0.15);
+  border-color: #d4a017;
+}
+
+.category-card.active {
+  background: linear-gradient(135deg, #fff9e5, #fff);
+  border: 2px solid #d4a017;
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(212, 160, 23, 0.2);
+}
+
+.category-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #64748b;
+  transition: 0.3s;
+}
+
+.category-card:hover .category-icon,
+.category-card.active .category-icon {
+  color: #d4a017;
+}
+
+.category-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* 5. Desktop Tweaks */
+@media (min-width: 768px) {
+  .category-scroll-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .category-card {
+    min-width: 150px;
+    width: 160px;
+  }
+}
+
+/* 6. Dark Mode Support */
+[data-theme="dark"] .category-card {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .category-title {
+  color: #e2e8f0;
+}
+[data-theme="dark"] .category-card.active {
+  background: #0f172a;
+  border-color: #d4a017;
+}
+
+.btn-view-premium-outline {
+  background: transparent;
+  color: var(--primary-gold);
+  border: 2px solid var(--primary-gold);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-view-premium-outline:hover {
+  background: var(--primary-gold);
+  color: #fff;
+  border-color: #fff;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+/* 7. Mobile Tweaks */
+@media (max-width: 767px) {
+  .category-card {
+    min-width: 120px;
+    width: 130px;
+  }
+}
+
+/* =========================================
+   PREMIUM LISTING PAGE STYLING
+   ========================================= */
+
+.btn-back-link {
+  background: none;
+  border: none;
+  font-weight: 600;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  font-size: 0.95rem;
+}
+.btn-back-link:hover {
+  color: var(--primary-gold);
+  transform: translateX(-5px);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(45deg, var(--primary-gold), #b8860b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title-underline {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-gold);
+  border-radius: 2px;
+}
+
+.premium-product-card {
+  background: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.premium-product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+  border-color: rgba(212, 160, 23, 0.3);
+}
+
+/* --- UPDATE 2: LISTING CARD IMAGE --- */
+.card-img-box {
+  position: relative;
+  /* height: 220px;  <-- Isay hata diya */
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Sab cards ka size barabar hoga */
+  background: #ffffff; /* Saaf white background */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Thora sa gap */
+}
+
+.card-img-box img {
+  width: 100%; /* Pura area use karega */
+  height: 100%;
+  object-fit: contain; /* Tasweer ko katne se bachayega */
+  transition: transform 0.6s ease;
+}
+
+.premium-product-card:hover .card-img-box img {
+  transform: scale(1.08); /* Zoom effect */
+}
+
+.premium-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(15, 23, 42, 0.9);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+}
+
+.overlay-actions {
+  position: absolute;
+  bottom: -50px;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  transition: 0.4s;
+  opacity: 0;
+}
+.premium-product-card:hover .overlay-actions {
+  bottom: 0;
+  opacity: 1;
+}
+.quick-view-btn {
+  background: var(--bg-secondary);
+  color: var(--text-main);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-details {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+.product-price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary-gold);
+}
+
+.btn-add-mini {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-secondary);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+.premium-product-card:hover .btn-add-mini {
+  background: var(--primary-gold);
+  color: white;
+}
+
+/* =========================================
+   PREMIUM FILTERS & NAVIGATION (FIXED STYLE)
+   ========================================= */
+
+/* 1. Category Quick Nav (Top Slider) */
+.category-quick-nav {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  justify-content: flex-start; /* Mobile par left se shuru */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+}
+.category-quick-nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Desktop par Center */
+@media (min-width: 768px) {
+  .category-quick-nav {
+    justify-content: center;
+  }
+}
+
+.nav-pill-btn {
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  color: #94a3b8; /* Grey Text */
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  transition: 0.3s;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-pill-btn.active,
+.nav-pill-btn:hover {
+  color: #d4a017; /* Gold Text */
+  border-bottom-color: #d4a017;
+}
+
+/* =========================================
+   REFINED PREMIUM FILTERS (SLEEK & MINIMAL)
+   ========================================= */
+
+/* 1. Base Button Style (Inactive) */
+.premium-filter-btn {
+  background: transparent; /* Piche ka rang gayab */
+  border: 1px solid #e2e8f0; /* Bohot halka border */
+  color: #64748b; /* Soft Grey Text */
+  padding: 8px 20px;
+  border-radius: 50px; /* Capsule Shape */
+  font-size: 0.85rem; /* Text size thora chota aur decent */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  min-width: 60px; /* Minimum chorayi */
+}
+
+/* 2. Hover Effect (Mouse upar jane par) */
+.premium-filter-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+  background: rgba(212, 160, 23, 0.05); /* Halka sa gold tint */
+  transform: translateY(-2px); /* Thora sa uthay */
+}
+
+/* 3. Active State (Jab Select ho) */
+.premium-filter-btn.active {
+  background: #d4a017 !important; /* Solid Gold */
+  border-color: #d4a017 !important;
+  color: #ffffff !important; /* White Text */
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3); /* Soft Gold Glow */
+  transform: translateY(0);
+}
+
+/* 4. Small Variant (Sub-Categories ke liye) */
+.premium-filter-btn.small {
+  padding: 6px 16px;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* =========================================
+   DARK MODE ADJUSTMENTS (AUTO)
+   ========================================= */
+
+[data-theme="dark"] .premium-filter-btn {
+  border-color: rgba(255, 255, 255, 0.15); /* Halka white border */
+  color: #94a3b8; /* Light Grey Text */
+}
+
+[data-theme="dark"] .premium-filter-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+  background: rgba(212, 160, 23, 0.1);
+}
+
+[data-theme="dark"] .premium-filter-btn.active {
+  background: #d4a017 !important;
+  color: #000 !important; /* Dark Text on Gold for better readability */
+  box-shadow: 0 4px 15px rgba(212, 160, 23, 0.2);
+}
+
+/* =========================================
+   NEW FILTER LAYOUT (STRUCTURED)
+   ========================================= */
+
+/* 1. The Main Box (Container) */
+.premium-filter-container {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto; /* Center mein lane ke liye */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03); /* Soft Premium Shadow */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+[data-theme="dark"] .premium-filter-container {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* 2. Label Text (e.g. FILTER BY GENDER) */
+.filter-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px; /* Thora phaila hua text (Premium look) */
+  color: #94a3b8; /* Muted Grey */
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* 3. Divider Line (Beech wali line) */
+.filter-divider {
+  height: 1px;
+  background: #f1f5f9;
+  width: 80%;
+  margin: 5px auto;
+}
+[data-theme="dark"] .filter-divider {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* 4. Button Tweaks (Colors same rahengi) */
+.premium-filter-btn {
+  /* Colors wahi hain jo aapne maange thay */
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 8px 24px;
+  border-radius: 8px; /* Thora Square-ish Round (Professional) */
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: white;
+}
+
+.premium-filter-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+  transform: translateY(-2px);
+}
+
+.premium-filter-btn.active {
+  background: #d4a017 !important;
+  border-color: #d4a017 !important;
+  color: white !important;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.25);
+}
+
+/* Dark Mode Colors */
+[data-theme="dark"] .premium-filter-btn {
+  background: #0f172a;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+[data-theme="dark"] .premium-filter-btn.active {
+  background: #d4a017 !important;
+  color: white !important;
+}
+
+/* =========================================
+      ULTRA-PREMIUM PRODUCT MODAL (FIXED)
+      ========================================= */
+
+/* 1. The Overlay (Peeche ka andhera) */
+.modal-overlay {
+  position: fixed; /* Screen par chipka rahe */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8); /* Dark background focus ke liye */
+  backdrop-filter: blur(8px); /* Blur effect premium lagta hai */
+  z-index: 9999; /* Sab se upar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards; /* Smooth entry */
+}
+
+/* 2. The Modal Box (Safaid Dabba) */
+.product-modal {
+  width: 1000px;
+  max-width: 90%;
+  height: 85vh; /* Screen ki 85% height */
+  background: var(--bg-body); /* Theme color */
+  border-radius: 20px;
+  display: flex; /* Side by side layout */
+  overflow: hidden; /* Bahar nikalti cheezain chupayen */
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Close Button (X) */
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  color: var(--text-main);
+}
+.modal-close-btn:hover {
+  background: #ff4d4d;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* --- LEFT SIDE: IMAGE STUDIO --- */
+.modal-img-section {
+  flex: 1.2; /* Image area thora bara */
+  background: var(--modal-img-bg); /* Studio background */
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.modal-main-img {
+  width: 100%;
+  height: 400px; /* Fixed height taake image phail na jaye */
+  /* border-radius: 40px; */
+  object-fit: contain; /* Image kabhi kategi nahi */
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.15)); /* Floating effect */
+  transition: transform 0.3s ease;
+}
+.modal-main-img:hover {
+  transform: scale(1.05);
+}
+
+/* Thumbnails */
+.modal-thumbnails {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+.thumb-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: white;
+  transition: all 0.3s;
+}
+.thumb-img.active,
+.thumb-img:hover {
+  border-color: var(--primary-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+/* --- RIGHT SIDE: DETAILS --- */
+.modal-info-section {
+  flex: 1;
+  padding: 50px 40px;
+  overflow-y: auto; /* Agar content zyada ho to scroll aye */
+  background: var(--bg-body);
+}
+
+.modal-category {
+  color: var(--primary-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.modal-title {
+  font-size: 2.2rem;
+  line-height: 1.2;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+.modal-price {
+  font-size: 1.8rem;
+  color: var(--primary-gold);
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.modal-description {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+/* Action Footer inside Modal */
+.action-group {
+  display: flex;
+  gap: 15px;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  padding-top: 30px;
+}
+
+.qty-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--border-color);
+  border-radius: 50px;
+  padding: 0 15px;
+  width: 120px;
+  height: 50px;
+}
+
+.btn-premium-modal {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary-gold), #b8860b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  box-shadow: 0 10px 20px var(--accent-glow);
+}
+.btn-premium-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px var(--accent-glow);
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   MOBILE MODAL: PREMIUM BOTTOM SHEET
+   ========================================= */
+@media (max-width: 768px) {
+  /* 1. Bottom Sheet Position */
+  .modal-overlay {
+    align-items: flex-end !important; /* Modal ko neechay chipkayen */
+    padding: 0 !important;
+  }
+
+  .product-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 85vh !important; /* Screen ka 85% hissa */
+    max-height: 85vh !important;
+    border-radius: 25px 25px 0 0 !important; /* Sirf upar se gol */
+    flex-direction: column !important; /* Image upar, text neechay */
+    animation: slideUpMobile 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+    overflow: hidden !important;
+  }
+
+  /* Slide Up Animation */
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* 2. Image Area (Compact Studio) */
+  .modal-img-section {
+    flex: none !important;
+    height: 35% !important; /* Image ko 35% jagah den */
+    padding: 20px !important;
+    background: var(--modal-img-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+  }
+
+  .modal-main-img {
+    height: 100% !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Thumbnails ko mobile par chupa den taake clutter na ho */
+  .modal-thumbnails {
+    display: none !important;
+  }
+
+  /* 3. Handle Bar (Drag Indicator) */
+  .sheet-handle-bar {
+    width: 50px;
+    height: 5px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+  }
+
+  /* 4. Text Content (Scrollable) */
+  .modal-info-section {
+    padding: 25px 20px 100px 20px !important; /* Bottom padding footer ke liye */
+    overflow-y: auto !important; /* Sirf text scroll kare */
+  }
+
+  .modal-title {
+    font-size: 1.6rem !important; /* Mobile ke liye font chota */
+    margin-bottom: 10px !important;
+  }
+
+  .modal-price {
+    font-size: 1.4rem !important;
+    margin-bottom: 15px !important;
+  }
+
+  .modal-description {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    color: var(--text-muted);
+  }
+
+  /* 5. Sticky Footer (Add to Cart) */
+  .action-group.glass-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--bg-body); /* Solid background */
+    padding: 15px 20px 25px 20px !important; /* Safe area for iPhone home bar */
+    border-top: 1px solid var(--border-color);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 15px;
+    z-index: 50;
+  }
+
+  .qty-box {
+    height: 50px !important; /* Button height fix */
+    width: 110px !important;
+  }
+
+  .btn-premium-modal {
+    height: 50px !important;
+    font-size: 1rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Close Button Adjustment */
+  .modal-close-btn {
+    top: 10px !important;
+    right: 10px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* =========================================
+   7. PROMO, FEATURES, REVIEWS
+   ========================================= */
+.promo-banner {
+  /* Replace with your image path */
+  background-image: url("./assets/SpidermanBunkBed.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 100px 20px;
+  position: relative;
+  text-align: center;
+  margin-top: 60px;
+}
+.promo-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+.promo-content {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.promo-tag {
+  background: var(--primary-gold);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+.promo-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #fff;
+}
+.promo-desc {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  color: #e0e0e0;
+}
+.btn-promo {
+  background: #fff;
+  color: #000;
+  padding: 15px 45px;
+  border-radius: 50px;
+  border: none;
+  font-weight: 700;
+  transition: 0.3s;
+}
+.btn-promo:hover {
+  background: var(--primary-gold);
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* =========================================
+   2. FEATURES / TRUST SECTION (Interactive)
+   ========================================= */
+.features-section {
+  background: linear-gradient(to bottom, var(--bg-secondary), var(--bg-body));
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Styling */
+.feature-card {
+  background: var(--bg-body);
+  padding: 40px 25px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: all 0.4s ease; /* Smooth animation */
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover Effect: Upar uthna aur Shadow ana */
+.feature-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-gold);
+}
+
+/* Icon Box Styling */
+.feature-icon-box {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-secondary);
+  color: var(--primary-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 25px auto;
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 2;
+  border: 1px dashed var(--primary-gold); /* Styling border */
+}
+
+/* Icon Hover Animation: Rotate & Fill Color */
+.feature-card:hover .feature-icon-box {
+  background: var(--primary-gold);
+  color: #fff;
+  transform: rotateY(180deg) scale(1.1); /* 3D Flip Animation */
+  border-style: solid;
+}
+
+.feature-title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+  transition: color 0.3s;
+}
+
+.feature-card:hover .feature-title {
+  color: var(--primary-gold);
+}
+
+.feature-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* =========================================
+   MOBILE FIX: TRUST SECTION (KHULA DESIGN)
+   ========================================= */
+@media (max-width: 768px) {
+  /* 1. Container ko thora khula karen */
+  .slider-container {
+    padding: 30px 15px !important; /* Side spacing */
+    gap: 20px !important; /* Cards ke darmiyan faasla */
+  }
+
+  /* 2. Cards ki Width Barhayen (Wider Look) */
+  .feature-slider-card {
+    min-width: 300px !important; /* Card ko chora kar diya */
+    max-width: 300px !important;
+  }
+
+  /* 3. Card ke andar ki spacing (Breathing Space) */
+  .feature-card {
+    padding: 35px 25px !important; /* Andar se khula */
+    height: auto !important; /* Height content ke hisaab se */
+    min-height: 300px; /* Minimum height taake aik size lagen */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Content center me */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important; /* Soft shadow */
+  }
+
+  /* 4. Text Adjustment */
+  .feature-desc {
+    font-size: 1rem !important; /* Text thora bara aur saaf */
+    line-height: 1.6;
+    padding: 0 10px; /* Text ko kinaron se door rakhen */
+  }
+
+  .feature-title {
+    font-size: 1.3rem !important;
+    margin-bottom: 15px;
+  }
+
+  /* 5. Icon adjustment */
+  .feature-icon-box {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    background: rgba(212, 160, 23, 0.08); /* Light Gold BG */
+  }
+}
+
+/* =========================================
+   TESTIMONIALS HYBRID LAYOUT (FIXED)
+   ========================================= */
+
+.testimonials-section {
+  padding: 80px 0;
+  background-color: #f8fafc;
+  overflow: hidden; /* Extra scroll hide karne ke liye */
+}
+[data-theme="dark"] .testimonials-section {
+  background-color: #0f172a;
+}
+
+/* 1. CONTAINER STYLE */
+.reviews-hybrid-container {
+  display: flex;
+  gap: 20px;
+
+  /* Mobile Default: Horizontal Scroll */
+  overflow-x: auto;
+  padding: 20px 20px 40px 20px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  /* Cards ko barabar height par rakhne ke liye */
+  align-items: stretch;
+}
+
+.reviews-hybrid-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* 2. CARD WRAPPER STYLE (MOBILE) */
+.testimonial-card-wrapper {
+  /* Mobile par Screen ka 85% */
+  min-width: 85vw;
+  max-width: 85vw;
+  flex-shrink: 0; /* Sikurne se roke */
+  height: auto;
+}
+
+/* 3. CARD DESIGN (COMMON) */
+.review-card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Parent ki height le */
+  transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .review-card {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4a017;
+  box-shadow: 0 15px 40px rgba(212, 160, 23, 0.15);
+}
+
+.btn-gold-outline {
+  background: transparent;
+  border: 1px solid #d4a017;
+  color: #d4a017;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.btn-gold-outline:hover {
+  background: #d4a017;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(212, 160, 23, 0.3);
+}
+
+/* 4. DESKTOP FIX (SCREEN > 992px) */
+@media (min-width: 992px) {
+  /* Slider khatam, Grid shuru */
+  .reviews-hybrid-container {
+    flex-wrap: wrap; /* Cards neechay gir jayen */
+    justify-content: center; /* Center mein rahen */
+    overflow-x: visible; /* Scroll khatam */
+    padding-bottom: 0;
+  }
+
+  /* Desktop Card Size */
+  .testimonial-card-wrapper {
+    min-width: 350px; /* Ab chota nahi rahega */
+    max-width: 400px; /* Zayada phailay ga nahi */
+    width: 30%; /* 3 Cards per row */
+    margin-bottom: 30px;
+  }
+}
+
+/* =========================================
+   PREMIUM FOOTER STYLING
+   ========================================= */
+
+.premium-footer {
+  background-color: #0f172a; /* Deep Navy Theme */
+  color: #94a3b8; /* Muted Text Color */
+  padding-top: 80px;
+  position: relative;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Brand Section */
+.footer-desc {
+  line-height: 1.8;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.social-icon:hover {
+  background: #d4a017;
+  border-color: #d4a017;
+  transform: translateY(-3px);
+  color: #fff;
+}
+
+/* Links Section */
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links li span {
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.3s;
+  display: inline-block;
+}
+
+.footer-links li span:hover {
+  color: #d4a017;
+  transform: translateX(5px); /* Slide effect */
+}
+
+/* Newsletter Input */
+.newsletter-form input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+.newsletter-form input:focus {
+  border-color: #d4a017 !important;
+  box-shadow: 0 0 10px rgba(212, 160, 23, 0.2);
+  outline: none;
+}
+
+.btn-circle-gold {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #d4a017;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+.btn-circle-gold:hover {
+  transform: scale(1.1);
+  background: #fff;
+  color: #d4a017;
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  margin-top: 60px;
+  padding: 25px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Admin Button in Footer */
+.footer-admin-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.3s;
+  margin-top: 15px; /* Mobile spacing */
+}
+
+@media (min-width: 768px) {
+  .footer-admin-btn {
+    margin-top: 0;
+  }
+}
+
+.footer-admin-btn:hover {
+  border-color: #d4a017;
+  color: #d4a017;
+}
+
+/* =========================================
+   PREMIUM POLICY MODAL STYLING
+   ========================================= */
+
+/* 1. The Card Container */
+.policy-modal-card {
+  background: #ffffff;
+  width: 90%;
+  max-width: 480px;
+  border-radius: 24px;
+  padding: 40px 30px 30px 30px; /* Top padding ziyada taake icon fit ho */
+  position: relative;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: modalPop 0.3s ease-out;
+}
+
+/* Dark Mode Card */
+[data-theme="dark"] .policy-modal-card {
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 2. Header & Icon Badge */
+.policy-header {
+  margin-bottom: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.policy-icon-badge {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(
+    135deg,
+    #fff9e5,
+    #fff0b3
+  ); /* Soft Gold Gradient */
+  color: #b8860b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(212, 160, 23, 0.15);
+  margin-top: -10px;
+}
+
+/* Dark Mode Icon Badge */
+[data-theme="dark"] .policy-icon-badge {
+  background: linear-gradient(135deg, #334155, #1e293b);
+  color: #d4a017;
+  border: 1px solid #d4a017;
+}
+
+.policy-header h3 {
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+[data-theme="dark"] .policy-header h3 {
+  color: #fff;
+}
+
+/* 3. Content Body */
+.policy-body {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  text-align: left;
+  border: 1px solid #f1f5f9;
+}
+[data-theme="dark"] .policy-body {
+  background: #0f172a;
+  border-color: #334155;
+}
+
+.policy-list {
+  padding-left: 20px;
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+[data-theme="dark"] .policy-list {
+  color: #cbd5e1;
+}
+
+.policy-list li {
+  margin-bottom: 10px;
+}
+.policy-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* 4. Buttons */
+.btn-close-absolute {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-close-absolute:hover {
+  background: #f1f5f9;
+  color: #ff4757;
+  transform: rotate(90deg);
+}
+
+.btn-gold-pill {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(212, 160, 23, 0.2);
+}
+
+.btn-gold-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(212, 160, 23, 0.3);
+}
+
+/* Animation */
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================
+   PREMIUM FOOTER & CONTACT WIDGET
+   ========================================= */
+
+.premium-footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden; /* Ye zaroori hai taake kuch bahar na nikle */
+}
+
+/* --- CONTACT WIDGET CARD --- */
+.contact-widget-card {
+  display: flex;
+  flex-wrap: wrap; /* Mobile par tootne ke liye */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  overflow: hidden; /* <--- YE MAP KO KAAT KE ANDAR RAKHEGA */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Left Info Side */
+.contact-info-side {
+  flex: 1;
+  min-width: 300px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.contact-row:hover .text-white {
+  color: #d4a017 !important;
+}
+
+.icon-box-gold {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(212, 160, 23, 0.3);
+  flex-shrink: 0;
+}
+
+/* Right Map Side */
+.map-side {
+  flex: 1;
+  min-width: 300px;
+  min-height: 300px; /* Map ki unchai */
+  background: #333;
+  position: relative;
+}
+
+.map-side iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: grayscale(20%) contrast(1.1); /* Premium Dark Feel */
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .contact-widget-card {
+    flex-direction: column;
+  }
+  .map-side {
+    height: 250px;
+  }
+}
+
+/* =========================================
+   9. MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+  /* Sidebar full width */
+  .mobile-menu-sidebar {
+    width: 80%;
+  }
+  .cart-sidebar {
+    width: 100%;
+    right: -100%;
+  }
+
+  /* Slider Buttons Hidden */
+  .slider-btn {
+    display: none;
+  }
+
+  /* Hero Text */
+  .hero-wrapper h1.display-3 {
+    font-size: 2.5rem !important;
+  }
+  .hero-wrapper .row {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-wrapper .col-lg-6 {
+    margin-bottom: 30px;
+  }
+
+  /* Promo Banner */
+  .promo-title {
+    font-size: 2.2rem;
+  }
+  .promo-banner {
+    padding: 60px 20px;
+  }
+
+  /* Header Alignment */
+  .section-header-premium {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-view-premium {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =========================================
+   PREMIUM ORDER TRACKING STYLING
+   ========================================= */
+
+.tracking-page {
+  background-color: #f1f5f9;
+  min-height: 90vh;
+}
+
+.tracking-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffffff;
+}
+
+/* Status Badge */
+.badge-status {
+  padding: 8px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+.badge-status.Pending {
+  background: #fff3cd;
+  color: #856404;
+}
+.badge-status.Shipped {
+  background: #cff4fc;
+  color: #055160;
+}
+.badge-status.Delivered {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+.badge-status.Cancelled {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* Timeline (The Cool Part) */
+.timeline-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  padding: 0 20px;
+}
+
+.timeline-step {
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  opacity: 0.5; /* Dim by default */
+  transition: 0.3s;
+}
+.timeline-step.active {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.timeline-step .circle {
+  width: 50px;
+  height: 50px;
+  background: #e2e8f0;
+  color: #64748b;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px auto;
+  font-size: 1.2rem;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-step.active .circle {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: white;
+  box-shadow: 0 4px 15px rgba(212, 160, 23, 0.4);
+}
+
+.timeline-step p {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Connecting Lines */
+.timeline-line {
+  flex-grow: 1;
+  height: 4px;
+  background: #e2e8f0;
+  margin: 0 10px;
+  position: relative;
+  top: -15px; /* Circle ke center mein lane ke liye */
+  z-index: 1;
+  border-radius: 10px;
+}
+.timeline-line.filled {
+  background: #d4a017; /* Gold when active */
+}
+
+/* Small Thumbnails */
+.img-thumb-small {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  background: #fff;
+}
+.last-no-border:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* =========================================
+   ADMIN LOGIN (ROYAL Gold THEME)
+   ========================================= */
+
+/* 1. Full Page Background (Deep Gold Professional Gradient) */
+.admin-login-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f1ca 0%, #a88d1f 100%);
+  padding: 20px;
+  position: fixed; /* Screen par fix rahe */
+  top: 0;
+  left: 0;
+  z-index: 2000;
+}
+
+/* 2. The Login Card (Clean White) */
+.admin-login-card {
+  background: #f1eeac;
+  width: 400px;
+  max-width: 100%;
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  /* Royal Blue Top Border */
+  border-top: 6px solid var(--primary-gold);
+}
+
+/* 3. Icon & Headings */
+.admin-icon-box {
+  width: 70px;
+  height: 70px;
+  background: #eef2ff; /* Very Light Blue */
+  color: var(--primary-gold); /* Royal Blue */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 20px auto;
+}
+
+.login-title {
+  font-family: "Fredoka", sans-serif;
+  color: #2f3542;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 1.8rem;
+}
+
+.login-subtitle {
+  color: #747d8c;
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+}
+
+/* 4. Input Fields (Modern) */
+.input-field-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+.input-field-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2f3542 !important;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 2px solid #dfe4ea;
+  border-radius: 12px;
+  background: #f8f9fa;
+  padding: 0 15px;
+  transition: all 0.3s;
+}
+
+/* Focus par Blue Glow */
+.input-wrapper:focus-within {
+  border-color: var(--primary-gold);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(55, 66, 250, 0.1);
+}
+
+.input-wrapper input {
+  width: 100%;
+  padding: 14px 10px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+  color: #2f3542;
+}
+
+.input-wrapper .icon {
+  color: var(--primary-gold);
+  font-size: 1rem;
+}
+.toggle-eye {
+  color: #747d8c;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 5px;
+}
+.toggle-eye:hover {
+  color: var(--primary-gold);
+}
+
+/* 5. Login Button (Solid Royal Blue) */
+.btn-login-royal {
+  width: 100%;
+  padding: 14px;
+  border-radius: 50px;
+  background: var(--primary-gold); /* Matching Website Theme */
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 20px rgba(55, 66, 250, 0.3);
+  margin-bottom: 15px;
+}
+
+.btn-login-royal:hover {
+  background: #c89618;
+  transform: translateY(-2px);
+}
+
+/* 6. Cancel Button (Grey - Go Back) */
+.btn-cancel-link {
+  background: transparent;
+  border: none;
+  color: #747d8c; /* Grey Text */
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.btn-cancel-link:hover {
+  color: #ff4757; /* Red on Hover (Danger/Exit) */
+  background: #fab7bb;
+  border-radius: 10px;
+}
+
+/* 7. Footer & Alerts */
+.login-footer {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: #cbd5e1;
+}
+.alert-message {
+  /* Flexbox taake icon aur text seedh mein ayen */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Icon aur text ke beech faasla */
+
+  /* Premium Look Colors */
+  background: #fff5f5; /* Bilkul halka sa reddish white */
+  color: #c0392b; /* Deep Red Text (Professional) */
+
+  /* Left Side Thick Border (Accent) */
+  border-left: 5px solid #ff4757;
+
+  /* Rounded Corners (Right side only for modern look) */
+  border-radius: 0 12px 12px 0;
+
+  padding: 16px 20px;
+  font-size: 0.95rem;
+  font-weight: 600; /* Thora mota text */
+  margin-bottom: 25px;
+  text-align: left;
+
+  /* Soft Red Shadow for Depth */
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.1);
+
+  /* Optional: Halki si shake animation jab error aye */
+  animation: shakeAlert 0.3s ease-in-out;
+}
+
+/* Alert Icon Styling */
+.alert-icon {
+  font-size: 1.4rem;
+  color: #ff4757; /* Vibrant Red Icon */
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Icon chota na ho */
+}
+
+/* Shake Animation (Optional - for attention) */
+@keyframes shakeAlert {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-4px);
+  }
+  40%,
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+/* =========================================
+   CUSTOM INPUT ERROR STYLING
+   ========================================= */
+
+/* 1. Red Border when Error occurs */
+.error-border {
+  border-color: #ff4757 !important; /* Red Border */
+  background: #fff5f5 !important; /* Light Red Background */
+  animation: shake 0.3s ease-in-out; /* Halka sa hilega */
+}
+
+/* 2. The Error Text Message (Premium Look) */
+.field-error-msg {
+  color: #ff4757; /* Vibrant Red */
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Icon aur text ka faasla */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 3. Shake Animation (Attention grabber) */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   PREMIUM ADMIN PANEL (GOLD EDITION)
+   ========================================= */
+
+/* --- Layout --- */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fa; /* Clean Light BG */
+  font-family: "Quicksand", sans-serif;
+}
+
+/* --- Sidebar (Dark Navy & Gold) --- */
+.admin-sidebar {
+  width: 260px;
+  background-color: #0f172a; /* Deep Navy */
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  z-index: 1050;
+  border-right: 1px solid rgba(212, 160, 23, 0.2); /* Subtle Gold Border */
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.show {
+    transform: translateX(0);
+  }
+}
+
+.sidebar-logo {
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+  color: #fff;
+  margin-bottom: 40px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.sidebar-logo span {
+  color: #d4a017;
+} /* Gold Accent */
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 20px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  color: #94a3b8; /* Muted Text */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #d4a017; /* Gold on Hover */
+}
+
+/* ACTIVE STATE - GOLD GLOW */
+.menu-item.active {
+  background: linear-gradient(90deg, rgba(212, 160, 23, 0.15), transparent);
+  color: #d4a017; /* Gold Text */
+  border-left: 4px solid #d4a017;
+}
+
+.logout-btn {
+  color: #ff4757 !important;
+  margin-top: auto;
+}
+.logout-btn:hover {
+  background: rgba(255, 71, 87, 0.1) !important;
+}
+
+/* --- Main Content --- */
+.admin-content {
+  flex: 1;
+  margin-left: 260px;
+  padding: 30px;
+  width: 100%;
+}
+@media (max-width: 992px) {
+  .admin-content {
+    margin-left: 0;
+  }
+}
+
+/* Header */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.admin-title h2 {
+  font-family: "Fredoka", sans-serif;
+  color: #0f172a;
+  margin: 0;
+}
+.admin-title p {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.avatar-circle {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg, #d4a017, #b8860b); /* Gold Gradient */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3);
+}
+
+/* --- STATS CARDS --- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.stat-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s;
+  border-bottom: 3px solid transparent;
+}
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Custom Colors for Stats */
+.stat-card.gold {
+  border-color: #d4a017;
+}
+.stat-card.navy {
+  border-color: #0f172a;
+}
+.stat-card.green {
+  border-color: #2ed573;
+}
+.stat-card.red {
+  border-color: #ff4757;
+}
+
+.stat-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.gold .stat-icon {
+  background: #fff9e5;
+  color: #d4a017;
+}
+.navy .stat-icon {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+.green .stat-icon {
+  background: #e8f5e9;
+  color: #2ed573;
+}
+.red .stat-icon {
+  background: #ffebee;
+  color: #ff4757;
+}
+
+/* --- INVENTORY / PRODUCTS SECTION (POLISHED) --- */
+
+/* 1. Add Product Form (Clean & Sharp) */
+.form-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 30px;
+  border-top: 4px solid #d4a017; /* Gold Top */
+}
+
+.form-label {
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  outline: none;
+  transition: 0.3s;
+  font-size: 0.95rem;
+  color: #334155;
+}
+.form-input:focus {
+  border-color: #d4a017; /* Gold Focus */
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.1);
+}
+
+/* =========================================
+   PREMIUM ADMIN PANEL STYLING ADDITIONS
+   ========================================= */
+
+/* --- Custom File Input Styling --- */
+.form-input[type="file"] {
+  padding: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+}
+
+.form-input[type="file"]::file-selector-button {
+  background: #020617;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 15px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Quicksand", sans-serif;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}
+
+.form-input[type="file"]::file-selector-button:hover {
+  background: linear-gradient(135deg, #d4a017, #b8860b); /* Gold Gradient */
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* --- Custom Dropdown Styling --- */
+/* Wrapper for custom arrow positioning */
+.select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Hide default arrow */
+.form-input.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 40px; /* Space for custom arrow */
+  cursor: pointer;
+}
+
+/* Custom Gold Arrow Icon */
+.select-arrow {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #d4a017; /* Gold Color */
+  pointer-events: none; /* Allows click to pass through to select */
+  font-size: 0.9rem;
+}
+
+/* Hover effect for select */
+.form-input.custom-select:hover {
+  border-color: #d4a017;
+  background-color: #fff9e5; /* Very Light Gold BG */
+}
+
+/* Focus effect */
+.form-input.custom-select:focus {
+  border-color: #d4a017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.15);
+  background-color: #fff;
+}
+
+/* 2. Gold Buttons */
+.btn-gold-admin {
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(212, 160, 23, 0.3);
+}
+.btn-gold-admin:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+
+.btn-cancel-admin {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn-cancel-admin:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* =========================================
+   PREMIUM SEARCH & FILTER TOOLBAR
+   ========================================= */
+
+/* 1. Main Toolbar Container */
+.toolbar {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 50px; /* Pill Shape */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04); /* Soft Shadow */
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* 2. Search Bar Styling */
+.search-bar-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f8fafc; /* Light Grey background inside */
+  padding: 10px 20px;
+  border-radius: 30px;
+  flex-grow: 1; /* Jagah gher le */
+  max-width: 400px;
+  transition: 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.search-bar-wrapper:focus-within {
+  background: white;
+  border-color: #d4a017; /* Focus hone par Gold Border */
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.15);
+}
+
+.search-icon {
+  color: #94a3b8;
+  margin-right: 12px;
+  font-size: 1.1rem;
+}
+
+.search-bar-wrapper input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: #334155;
+  font-weight: 500;
+}
+
+/* 3. Filter Dropdown Styling */
+.select-wrapper {
+  position: relative;
+  background: #f8fafc;
+  border-radius: 30px;
+  transition: 0.3s;
+  border: 1px solid transparent;
+}
+
+.select-wrapper:hover {
+  background: #fff;
+  border-color: #e2e8f0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.custom-select {
+  appearance: none; /* Default arrow hide karen */
+  background: transparent;
+  border: none;
+  padding: 12px 40px 12px 20px; /* Right padding arrow ke liye */
+  border-radius: 30px;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4a017; /* Gold Arrow */
+  pointer-events: none;
+}
+
+/* 4. Mobile Responsiveness */
+@media (max-width: 768px) {
+  .toolbar {
+    border-radius: 20px; /* Mobile par thora kam round */
+    padding: 15px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-bar-wrapper {
+    max-width: 100%;
+  }
+  .select-wrapper {
+    width: 100%;
+  }
+  .custom-select {
+    width: 100% !important;
+  }
+}
+
+/* 4. Product Grid (Attractive Cards) */
+.product-grid-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.admin-product-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hover Effect: Gold Border & Lift */
+.admin-product-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4a017;
+  box-shadow: 0 15px 30px rgba(212, 160, 23, 0.15);
+}
+
+.img-container {
+  height: 180px;
+  width: 100%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.img-container img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: transform 0.5s ease;
+}
+.admin-product-card:hover .img-container img {
+  transform: scale(1.1);
+}
+
+.admin-prod-details {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.admin-prod-details h5 {
+  font-size: 1rem;
+  margin: 0 0 5px 0;
+  color: #0f172a;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-prod-details p {
+  color: #d4a017;
+  font-weight: 800;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+/* Card Actions */
+.admin-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.product-badge {
+  background: #28a745;
+  color: var(--bg-main);
+  display: inline-block;
+  padding: 5px 5px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.btn-action-sm {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: 0.2s;
+}
+.btn-edit {
+  background: #0f172a;
+} /* Navy for Edit */
+.btn-edit:hover {
+  background: #1e293b;
+}
+.btn-delete {
+  background: #ff4757;
+} /* Red for Delete */
+.btn-delete:hover {
+  background: #ff6b81;
+}
+
+/* Recent Orders Row */
+.recent-order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.recent-order-row:last-child {
+  border-bottom: none;
+}
+
+/* Mobile Header */
+.admin-mobile-header {
+  background: #0f172a;
+  padding: 15px;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1040;
+}
+.text-gold {
+  color: #d4a017 !important;
+}
+.btn-icon-light {
+  background: transparent;
+  border: none;
+  color: #d4a017;
+}
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1045;
+}
+
+/* =========================================
+   ADMIN PANEL UPDATES
+   ========================================= */
+
+/* New Badges in Product List */
+.admin-prod-details .badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* Form Layout Tweak */
+.form-input.custom-select {
+  background-color: #fff;
+  cursor: pointer;
+}
+
+/* Ensure Dropdowns look good */
+.select-wrapper {
+  position: relative;
+}
+.select-arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748b;
+  font-size: 0.8rem;
+}
+
+/* =============================================
+   MOBILE RESPONSIVE ADMIN PANEL (Add to App.css)
+   ============================================= */
+
+/* Only applies to Mobile & Tablets (Screens smaller than 991px) */
+@media (max-width: 991px) {
+  /* 1. Layout Fix: Stack everything vertically */
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  /* 2. Sidebar: Hide off-screen by default */
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px; /* Hide completely */
+    width: 260px;
+    height: 100vh;
+    z-index: 1050; /* Above everything */
+    transition: left 0.3s ease-in-out;
+    box-shadow: none;
+  }
+
+  /* When sidebar is open */
+  .admin-sidebar.show {
+    left: 0; /* Slide in */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+  }
+
+  /* 3. Main Content: Full width & push down for header */
+  .admin-content {
+    margin-left: 0 !important;
+    width: 100%;
+    padding: 20px;
+    padding-top: 90px; /* Space for the top mobile header */
+  }
+
+  /* 4. Mobile Header: Fix to top */
+  .admin-mobile-header {
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #0f172a; /* Your Dark Theme Color */
+    z-index: 1000;
+    padding: 0 20px;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-close-white {
+    color: white !important;
+    background: transparent !important;
+    border-radius: 50% !important;
+    border: none !important;
+    margin-left: 10px !important;
+  }
+
+  .btn-close-white:hover {
+    color: #d4a017 !important;
+  }
+
+  /* 5. Dashboard Cards: 1 Column on Mobile */
+  .stats-grid {
+    grid-template-columns: 1fr !important; /* Stack cards vertically */
+    gap: 15px;
+  }
+
+  /* 6. Fix Form Inputs on Mobile */
+  .form-card {
+    padding: 15px;
+  }
+
+  .form-input,
+  .custom-select {
+    font-size: 16px !important; /* Prevents iPhone zoom on click */
+  }
+
+  /* 7. Tables: Enable horizontal scrolling */
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    white-space: nowrap; /* Keep rows in one line */
+  }
+
+  /* 8. Overlay Background */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040; /* Below sidebar, above content */
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* =========================================
+   FLOATING BUTTONS (CLEAN & FIXED)
+   ========================================= */
+
+/* 1. WHATSAPP BUTTON (Sab se neechay) */
+.floating-buttons-container {
+  position: fixed;
+  bottom: 30px; /* Neechay se 30px upar */
+  right: 25px; /* Right side */
+  z-index: 2000;
+}
+
+.whatsapp-btn {
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4); /* Green Glow */
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+  transform: scale(1.1);
+  color: white;
+}
+
+/* 2. SCROLL TO TOP BUTTON (WhatsApp ke upar) */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 110px; /* Logic: 30px (bottom) + 60px (wa btn) + 20px (gap) = 110px */
+  right: 30px; /* Thora chota hai isliye right margin adjust kia */
+
+  width: 45px;
+  height: 45px; /* Size thora chota rakha taake WhatsApp main focus rahe */
+  background: #0f172a; /* Dark Theme Button */
+  color: #d4a017; /* Gold Icon */
+  border: 2px solid #d4a017;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 1900;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+
+.scroll-top-btn:hover {
+  background: #d4a017;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* 3. Mobile Adjustment */
+@media (max-width: 768px) {
+  .floating-buttons-container {
+    bottom: 20px;
+    right: 20px;
+  }
+  .whatsapp-btn {
+    width: 55px;
+    height: 55px;
+    font-size: 28px;
+  }
+
+  .scroll-top-btn {
+    bottom: 90px; /* Mobile par gap adjust kia */
+    right: 25px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* --- ADMIN ACTION BUTTONS --- */
+.btn-action-float {
+  position: absolute;
+  top: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+  z-index: 10;
+}
+
+.btn-delete {
+  right: 5px;
+  background: rgba(220, 53, 69, 0.9);
+}
+.btn-delete:hover {
+  background: red;
+  transform: scale(1.1);
+}
+
+/* Edit button thora left par hoga delete ke */
+.btn-edit {
+  right: 35px;
+  background: rgba(13, 110, 253, 0.9);
+}
+.btn-edit:hover {
+  background: #0d6efd;
+  transform: scale(1.1);
+}
+
+/* --- FORM STYLES --- */
+.border-gold-top {
+  border-top: 4px solid var(--primary-gold);
+}
+
+.image-upload-box {
+  background: #f8f9fa;
+  border: 2px dashed #dee2e6;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+}
+.image-upload-box:hover {
+  border-color: var(--primary-gold);
+}
+
+/* --- SKELETON LOADER ANIMATION --- */
+.skeleton {
+  background: #e0e0e0;
+  background: linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton Specific Shapes */
+.sk-banner {
+  width: 100%;
+  height: 400px; /* Hero section jitni height */
+  margin-bottom: 30px;
+}
+
+.sk-card {
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 12px;
+  height: 100%;
+}
+
+.sk-img {
+  width: 100%;
+  height: 180px;
+  margin-bottom: 15px;
+}
+
+.sk-title {
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.sk-price {
+  width: 40%;
+  height: 20px;
+}
+
+/* --- UPDATED SKELETON LOADER ANIMATION --- */
+.skeleton {
+  /* Ab hum fix rang nahi, balkay variables use kar rahe hain */
+  background: var(--skeleton-base);
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base) 0%,
+    var(--skeleton-highlight) 50%,
+    var(--skeleton-base) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Card ka background bhi dynamic banana hai */
+.sk-card-bg {
+  background-color: var(--skeleton-card-bg) !important;
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Baki classes same rahengi */
+.sk-banner {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 30px;
+}
+
+.sk-card {
+  border: 1px solid var(--border-color, #eee); /* Border bhi dynamic */
+  padding: 15px;
+  border-radius: 12px;
+  height: 100%;
+}
+
+.sk-img {
+  width: 100%;
+  height: 180px;
+  margin-bottom: 15px;
+}
+
+.sk-title {
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.sk-price {
+  width: 40%;
+  height: 20px;
+}
